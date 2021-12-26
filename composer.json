@@ -1,0 +1,15 @@
+{
+    "name": "claudio/object-calisthenucs-exercises-with-php",
+    "autoload": {
+        "psr-4": {
+            "Claudio\\ObjectCalisthenucsExercisesWithPhp\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "claudio-code",
+            "email": "suporte2424@outlook.com"
+        }
+    ],
+    "require": {}
+}
