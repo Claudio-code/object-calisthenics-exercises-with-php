@@ -1,5 +1,5 @@
 <h3 align="center">
-  :scroll: SOLID principles :scroll:
+  :scroll: Object calisthenics :scroll:
 </h3>
 
 ## Content studied
