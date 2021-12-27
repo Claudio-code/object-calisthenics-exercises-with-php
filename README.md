@@ -13,3 +13,6 @@
 - Keeping cohesion
 
 <hr>
+
+- Don't use getters and setters
+  - Tell, don't Ask

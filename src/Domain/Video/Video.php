@@ -4,14 +4,19 @@ namespace Claudio\ObjectCalisthenucsExercisesWithPhp\Domain\Video;
 
 class Video
 {
-    public const PUBLIC = 1;
-    public const PRIVATE = 2;
+    private const PUBLIC = 1;
+    private const PRIVATE = 2;
     private int $visibility = self::PRIVATE;
     private int $ageLimit;
 
-    public function getVisibility(): int
+    public function publish(): void
     {
-        return $this->visibility;
+        $this->visibility = self::PUBLIC;
+    }
+
+    public function isPublic(): bool
+    {
+        return $this->visibility === self::PUBLIC;
     }
 
     public function checkIfVisibilityIsValidAndUpdateIt(int $visibility): void
