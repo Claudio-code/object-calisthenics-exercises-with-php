@@ -80,7 +80,7 @@ class Student
         return $this->watchedVideos
             ->keys()
             ->sortBy(fn (string $item) => $item)
-            ->map(fn (string $item) => DateTimeImmutableFactory::makeFormatAtom($item))
+            ->map(DateTimeImmutableFactory::makeFormatAtom(...))
             ->first();
     }
 }
