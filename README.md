@@ -14,5 +14,9 @@
 
 <hr>
 
-- Don't use getters and setters
-  - Tell, don't Ask
+- Tell, don't Ask
+  - Don't use getters and setters
+- Early return
+  - Has one only one level per method
+  - Never use ELSE
+- Fail fast

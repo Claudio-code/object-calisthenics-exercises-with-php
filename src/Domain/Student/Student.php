@@ -4,35 +4,30 @@ namespace Claudio\ObjectCalisthenucsExercisesWithPhp\Domain\Student;
 
 use Claudio\ObjectCalisthenucsExercisesWithPhp\Domain\Video\Video;
 use DateTimeInterface;
-use Ds\Map;
+use DateTimeImmutable;
+use Illuminate\Support\Collection;
+
 
 class Student
 {
-    private string $email;
-    private DateTimeInterface $bd;
-    private Map $watchedVideos;
-    private string $fName;
-    private string $lName;
-    public string $street;
-    public string $number;
-    public string $province;
-    public string $city;
-    public string $state;
-    public string $country;
+    private const NINETY_DAYS = 90;
+    private const ZERO_DAYS = 0;
+    private Collection $watchedVideos;
 
-    public function __construct(string $email, DateTimeInterface $bd, string $fName, string $lName, string $street, string $number, string $province, string $city, string $state, string $country)
-    {
-        $this->watchedVideos = new Map();
+    public function __construct(
+        private string $email,
+        private DateTimeInterface $bd,
+        private string $fName,
+        private string $lName,
+        public string $street,
+        public string $number,
+        public string $province,
+        public string $city,
+        public string $state,
+        public string $country,
+    ) {
+        $this->watchedVideos = Collection::empty();
         $this->setEmail($email);
-        $this->bd = $bd;
-        $this->fName = $fName;
-        $this->lName = $lName;
-        $this->street = $street;
-        $this->number = $number;
-        $this->province = $province;
-        $this->city = $city;
-        $this->state = $state;
-        $this->country = $country;
     }
 
     public function getFullName(): string
@@ -40,13 +35,12 @@ class Student
         return "{$this->fName} {$this->lName}";
     }
 
-    private function setEmail(string $email)
+    private function setEmail(string $email): void
     {
-        if (filter_var($email, FILTER_VALIDATE_EMAIL) !== false) {
-            $this->email = $email;
-        } else {
+        if (filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
             throw new \InvalidArgumentException('Invalid e-mail address');
         }
+        $this->email = $email;
     }
 
     public function getEmail(): string
@@ -61,24 +55,33 @@ class Student
 
     public function watch(Video $video, DateTimeInterface $date)
     {
-        $this->watchedVideos->put($video, $date);
+        $this->watchedVideos->put($date->format(DateTimeInterface::ATOM), $video);
     }
 
     public function hasAccess(): bool
     {
-        if ($this->watchedVideos->count() > 0) {
-            $this->watchedVideos->sort(fn (DateTimeInterface $dateA, DateTimeInterface $dateB) => $dateA <=> $dateB);
-            /** @var DateTimeInterface $firstDate */
-            $firstDate = $this->watchedVideos->first()->value;
-            $today = new \DateTimeImmutable();
+        return !$this->hasVideoWatched() || $this->firstVideoWatchedDateIsMoreOrEqualNinetyDays();
+    }
 
-            if ($firstDate->diff($today)->days >= 90) {
-                return false;
-            } else {
-                return true;
-            }
-        } else {
-            return true;
-        }
+    private function firstVideoWatchedDateIsMoreOrEqualNinetyDays(): bool
+    {
+        $today = new \DateTimeImmutable();
+        return $this->getFirstVideoWatched()
+                ->diff($today)
+                ->days < self::NINETY_DAYS;
+    }
+
+    private function hasVideoWatched(): bool
+    {
+        return $this->watchedVideos->count() > self::ZERO_DAYS;
+    }
+
+    private function getFirstVideoWatched(): DateTimeInterface
+    {
+        return $this->watchedVideos
+            ->keys()
+            ->sortBy(fn (string $item) => $item)
+            ->map(fn (string $item) => DateTimeImmutable::createFromFormat(DateTimeInterface::ATOM, $item))
+            ->first();
     }
 }
