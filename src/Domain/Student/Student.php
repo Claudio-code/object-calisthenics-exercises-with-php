@@ -3,8 +3,8 @@
 namespace Claudio\ObjectCalisthenucsExercisesWithPhp\Domain\Student;
 
 use Claudio\ObjectCalisthenucsExercisesWithPhp\Domain\Video\Video;
+use Claudio\ObjectCalisthenucsExercisesWithPhp\Infra\Factories\DateTimeImmutableFactory;
 use DateTimeInterface;
-use DateTimeImmutable;
 use Illuminate\Support\Collection;
 
 
@@ -65,9 +65,8 @@ class Student
 
     private function firstVideoWatchedDateIsMoreOrEqualNinetyDays(): bool
     {
-        $today = new \DateTimeImmutable();
         return $this->getFirstVideoWatched()
-                ->diff($today)
+                ->diff(DateTimeImmutableFactory::makeEmpty())
                 ->days < self::NINETY_DAYS;
     }
 
@@ -81,7 +80,7 @@ class Student
         return $this->watchedVideos
             ->keys()
             ->sortBy(fn (string $item) => $item)
-            ->map(fn (string $item) => DateTimeImmutable::createFromFormat(DateTimeInterface::ATOM, $item))
+            ->map(fn (string $item) => DateTimeImmutableFactory::makeFormatAtom($item))
             ->first();
     }
 }
