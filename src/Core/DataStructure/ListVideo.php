@@ -19,9 +19,6 @@ class ListVideo
 
     public function getVideosOfStudent(Student $student): Collection
     {
-        $today = new \DateTimeImmutable();
-        return $this->collection->filter(function (Video $video) use ($today, $student) {
-            return $video->getAgeLimit() <= $student->getBd()->diff($today)->y;
-        });
+        return $this->collection->filter($student->isStudentCanAccessIsVideo(...));
     }
 }

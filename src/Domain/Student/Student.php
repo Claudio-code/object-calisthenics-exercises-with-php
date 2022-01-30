@@ -5,13 +5,14 @@ namespace Claudio\ObjectCalisthenucsExercisesWithPhp\Domain\Student;
 use Claudio\ObjectCalisthenucsExercisesWithPhp\Domain\Email\Email;
 use Claudio\ObjectCalisthenucsExercisesWithPhp\Domain\Video\Video;
 use Claudio\ObjectCalisthenucsExercisesWithPhp\Domain\Video\WatchedVideos;
+use DateTimeImmutable;
 use DateTimeInterface;
 
 class Student
 {
     public function __construct(
         private Email $email,
-        private DateTimeInterface $bd,
+        private DateTimeInterface $brightDate,
         private string $fName,
         private string $lName,
         public string $street,
@@ -33,9 +34,11 @@ class Student
         return $this->email;
     }
 
-    public function getBd(): DateTimeInterface
+    public function age(): int
     {
-        return $this->bd;
+        $today = new DateTimeImmutable();
+        $intervalDate = $this->brightDate->diff($today);
+        return $intervalDate->y;
     }
 
     public function watch(Video $video, DateTimeInterface $date)
@@ -46,5 +49,10 @@ class Student
     public function hasAccess(): bool
     {
         return $this->watchedVideos->hasAccess();
+    }
+
+    public function isStudentCanAccessIsVideo(Video $video): bool
+    {
+        return $video->getAgeLimit() <= $this->age();
     }
 }

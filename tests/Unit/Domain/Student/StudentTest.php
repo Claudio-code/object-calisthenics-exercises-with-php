@@ -13,18 +13,7 @@ class StudentTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->student = new Student(
-            new Email('email@example.com'),
-            new \DateTimeImmutable('1997-10-15'),
-            'Vinicius',
-            'Dias',
-            'Rua de Exemplo',
-            '71B',
-            'Meu Bairro',
-            'Minha Cidade',
-            'Meu estado',
-            'Brasil'
-        );
+        $this->student = $this->makeStudent();
     }
 
     public function testStudentWithoutWatchedVideosHasAccess()
@@ -64,5 +53,21 @@ class StudentTest extends TestCase
         $this->student->watch(new Video(), new \DateTimeImmutable('-30 days'));
 
         self::assertFalse($this->student->hasAccess());
+    }
+
+    private static function makeStudent(): Student
+    {
+        return new Student(
+            new Email('email@example.com'),
+            new \DateTimeImmutable('1997-10-15'),
+            'Vinicius',
+            'Dias',
+            'Rua de Exemplo',
+            '71B',
+            'Meu Bairro',
+            'Minha Cidade',
+            'Meu estado',
+            'Brasil'
+        );
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Unit\Domain\Video;
 
+use Claudio\ObjectCalisthenucsExercisesWithPhp\Domain\Email\Email;
 use Claudio\ObjectCalisthenucsExercisesWithPhp\Domain\Student\Student;
 use Claudio\ObjectCalisthenucsExercisesWithPhp\Domain\Video\InMemoryVideoRepository;
 use Claudio\ObjectCalisthenucsExercisesWithPhp\Domain\Video\Video;
@@ -9,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class InMemoryVideoRepositoryTest extends TestCase
 {
-    public function testFindingVideosForAStudentMustFilterAgeLimit()
+    public function testFindingVideosForAStudentMustFilterAgeLimit(): void
     {
         $repository = new InMemoryVideoRepository();
 
@@ -18,11 +19,25 @@ class InMemoryVideoRepositoryTest extends TestCase
             $repository->add(new Video($i));
         }
 
-        $student = $this->createStub(Student::class);
-        $student->method('getBd')->willReturn(new \DateTimeImmutable('-19 years'));
-
+        $student = $this->makeStudent();
         $videoList = $repository->videosFor($student);
 
         self::assertCount(3, $videoList);
+    }
+
+    private static function makeStudent(): Student
+    {
+        return new Student(
+            new Email('email@example.com'),
+            new \DateTimeImmutable('-19 years'),
+            'Vinicius',
+            'Dias',
+            'Rua de Exemplo',
+            '71B',
+            'Meu Bairro',
+            'Minha Cidade',
+            'Meu estado',
+            'Brasil'
+        );
     }
 }

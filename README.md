@@ -22,3 +22,4 @@
 - Fail fast
 - Involve yours primitive types#
 - First class collection
+- Only one point of line (access point)
