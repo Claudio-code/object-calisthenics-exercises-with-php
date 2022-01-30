@@ -9,7 +9,7 @@ use Illuminate\Support\Collection;
 class InMemoryVideoRepository implements VideoRepository
 {
     public function __construct(
-        private ListVideo $videos = new ListVideo()
+        private readonly ListVideo $videos = new ListVideo()
     ) {}
 
     public function add(Video $video): void

@@ -7,7 +7,7 @@ use Claudio\ObjectCalisthenucsExercisesWithPhp\Core\Enum\VideoState;
 class Video
 {
     public function __construct(
-        private int $ageLimit = 21,
+        private readonly int $ageLimit = 21,
         private VideoState $visibility = VideoState::PRIVATE,
     ) {}
 

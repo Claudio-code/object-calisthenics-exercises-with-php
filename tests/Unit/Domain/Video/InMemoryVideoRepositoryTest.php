@@ -2,7 +2,9 @@
 
 namespace Unit\Domain\Video;
 
+use Claudio\ObjectCalisthenucsExercisesWithPhp\Domain\Address\Address;
 use Claudio\ObjectCalisthenucsExercisesWithPhp\Domain\Email\Email;
+use Claudio\ObjectCalisthenucsExercisesWithPhp\Domain\Name\Name;
 use Claudio\ObjectCalisthenucsExercisesWithPhp\Domain\Student\Student;
 use Claudio\ObjectCalisthenucsExercisesWithPhp\Domain\Video\InMemoryVideoRepository;
 use Claudio\ObjectCalisthenucsExercisesWithPhp\Domain\Video\Video;
@@ -27,17 +29,23 @@ class InMemoryVideoRepositoryTest extends TestCase
 
     private static function makeStudent(): Student
     {
-        return new Student(
-            new Email('email@example.com'),
-            new \DateTimeImmutable('-19 years'),
-            'Vinicius',
-            'Dias',
+        $address = new Address(
             'Rua de Exemplo',
             '71B',
             'Meu Bairro',
             'Minha Cidade',
             'Meu estado',
             'Brasil'
+        );
+
+        return new Student(
+            new Email('email@example.com'),
+            new \DateTimeImmutable('-19 years'),
+            new Name(
+                'Vinicius',
+                'Dias',
+            ),
+            $address
         );
     }
 }

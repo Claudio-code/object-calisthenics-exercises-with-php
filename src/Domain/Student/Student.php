@@ -2,7 +2,9 @@
 
 namespace Claudio\ObjectCalisthenucsExercisesWithPhp\Domain\Student;
 
+use Claudio\ObjectCalisthenucsExercisesWithPhp\Domain\Address\Address;
 use Claudio\ObjectCalisthenucsExercisesWithPhp\Domain\Email\Email;
+use Claudio\ObjectCalisthenucsExercisesWithPhp\Domain\Name\Name;
 use Claudio\ObjectCalisthenucsExercisesWithPhp\Domain\Video\Video;
 use Claudio\ObjectCalisthenucsExercisesWithPhp\Domain\Video\WatchedVideos;
 use DateTimeImmutable;
@@ -11,22 +13,21 @@ use DateTimeInterface;
 class Student
 {
     public function __construct(
-        private Email $email,
-        private DateTimeInterface $brightDate,
-        private string $firstName,
-        private string $lastName,
-        public string $street,
-        public string $number,
-        public string $province,
-        public string $city,
-        public string $state,
-        public string $country,
-        private WatchedVideos $watchedVideos = new WatchedVideos()
+        private readonly Email $email,
+        private readonly DateTimeInterface $brightDate,
+        private readonly Name $name,
+        private readonly Address $address,
+        private readonly WatchedVideos $watchedVideos = new WatchedVideos()
     ) {}
 
     public function fullName(): string
     {
-        return "{$this->firstName} {$this->lastName}";
+        return $this->name;
+    }
+
+    public function address(): Address
+    {
+        return $this->address;
     }
 
     public function email(): string

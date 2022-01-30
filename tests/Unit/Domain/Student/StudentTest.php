@@ -2,7 +2,9 @@
 
 namespace Unit\Domain\Student;
 
+use Claudio\ObjectCalisthenucsExercisesWithPhp\Domain\Address\Address;
 use Claudio\ObjectCalisthenucsExercisesWithPhp\Domain\Email\Email;
+use Claudio\ObjectCalisthenucsExercisesWithPhp\Domain\Name\Name;
 use Claudio\ObjectCalisthenucsExercisesWithPhp\Domain\Student\Student;
 use Claudio\ObjectCalisthenucsExercisesWithPhp\Domain\Video\Video;
 use PHPUnit\Framework\TestCase;
@@ -57,17 +59,23 @@ class StudentTest extends TestCase
 
     private static function makeStudent(): Student
     {
-        return new Student(
-            new Email('email@example.com'),
-            new \DateTimeImmutable('1997-10-15'),
-            'Vinicius',
-            'Dias',
+        $address = new Address(
             'Rua de Exemplo',
             '71B',
             'Meu Bairro',
             'Minha Cidade',
             'Meu estado',
             'Brasil'
+        );
+
+        return new Student(
+            new Email('email@example.com'),
+            new \DateTimeImmutable('1997-10-15'),
+            new Name(
+                'Vinicius',
+                'Dias',
+            ),
+            $address
         );
     }
 }

@@ -24,3 +24,5 @@
 - First class collection
 - Only one point of line (access point)
 - Never abbreviate
+- Maintain your class and packages smalls
+- Has maxim two properties of class

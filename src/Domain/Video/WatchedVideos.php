@@ -10,7 +10,7 @@ use Illuminate\Support\Collection;
 class WatchedVideos
 {
     public function __construct(
-        private Collection $watchedVideos = new Collection()
+        private readonly Collection $watchedVideos = new Collection()
     ) {}
 
     public function addWatchedVideo(Video $video, DateTimeInterface $date): void
