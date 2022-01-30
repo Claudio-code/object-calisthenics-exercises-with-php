@@ -2,6 +2,7 @@
 
 namespace Unit\Domain\Student;
 
+use Claudio\ObjectCalisthenucsExercisesWithPhp\Domain\Email\Email;
 use Claudio\ObjectCalisthenucsExercisesWithPhp\Domain\Student\Student;
 use Claudio\ObjectCalisthenucsExercisesWithPhp\Domain\Video\Video;
 use PHPUnit\Framework\TestCase;
@@ -13,7 +14,7 @@ class StudentTest extends TestCase
     protected function setUp(): void
     {
         $this->student = new Student(
-            'email@example.com',
+            new Email('email@example.com'),
             new \DateTimeImmutable('1997-10-15'),
             'Vinicius',
             'Dias',
