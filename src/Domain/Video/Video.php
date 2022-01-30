@@ -21,12 +21,12 @@ class Video
         return $this->visibility === VideoState::PUBLIC;
     }
 
-    public function checkIfVisibilityIsValidAndUpdateIt(VideoState $visibility): void
+    public function checkIfVisibilityIsValid(VideoState $visibility): void
     {
         VideoState::checkIfVisibilityIsValidAndUpdateIt($visibility);
     }
 
-    public function getAgeLimit(): int
+    public function ageLimit(): int
     {
         return $this->ageLimit;
     }

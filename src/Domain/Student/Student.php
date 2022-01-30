@@ -13,8 +13,8 @@ class Student
     public function __construct(
         private Email $email,
         private DateTimeInterface $brightDate,
-        private string $fName,
-        private string $lName,
+        private string $firstName,
+        private string $lastName,
         public string $street,
         public string $number,
         public string $province,
@@ -24,12 +24,12 @@ class Student
         private WatchedVideos $watchedVideos = new WatchedVideos()
     ) {}
 
-    public function getFullName(): string
+    public function fullName(): string
     {
-        return "{$this->fName} {$this->lName}";
+        return "{$this->firstName} {$this->lastName}";
     }
 
-    public function getEmail(): string
+    public function email(): string
     {
         return $this->email;
     }
@@ -53,6 +53,6 @@ class Student
 
     public function isStudentCanAccessIsVideo(Video $video): bool
     {
-        return $video->getAgeLimit() <= $this->age();
+        return $video->ageLimit() <= $this->age();
     }
 }
