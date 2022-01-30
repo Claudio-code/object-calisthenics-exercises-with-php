@@ -2,10 +2,10 @@
 
 namespace Claudio\ObjectCalisthenucsExercisesWithPhp\Domain\Video;
 
-use Claudio\ObjectCalisthenucsExercisesWithPhp\Core\DaysEnum;
-use Claudio\ObjectCalisthenucsExercisesWithPhp\Infra\Factories\DateTimeImmutableFactory;
-use Illuminate\Support\Collection;
+use Claudio\ObjectCalisthenucsExercisesWithPhp\Core\Enum\DaysEnum;
+use Claudio\ObjectCalisthenucsExercisesWithPhp\Core\Factory\DateTimeImmutableFactory;
 use DateTimeInterface;
+use Illuminate\Support\Collection;
 
 class WatchedVideos
 {

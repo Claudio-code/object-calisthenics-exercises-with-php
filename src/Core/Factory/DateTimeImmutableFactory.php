@@ -1,6 +1,6 @@
 <?php
 
-namespace Claudio\ObjectCalisthenucsExercisesWithPhp\Infra\Factories;
+namespace Claudio\ObjectCalisthenucsExercisesWithPhp\Core\Factory;
 
 use DateTimeImmutable;
 use DateTimeInterface;

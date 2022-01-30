@@ -2,23 +2,23 @@
 
 namespace Claudio\ObjectCalisthenucsExercisesWithPhp\Domain\Video;
 
+use Claudio\ObjectCalisthenucsExercisesWithPhp\Core\DataStructure\ListVideo;
 use Claudio\ObjectCalisthenucsExercisesWithPhp\Domain\Student\Student;
+use Illuminate\Support\Collection;
 
 class InMemoryVideoRepository implements VideoRepository
 {
-    private array $videos;
+    public function __construct(
+        private ListVideo $videos = new ListVideo()
+    ) {}
 
     public function add(Video $video): void
     {
-        $this->videos[] = $video;
+        $this->videos->add($video);
     }
 
-    public function videosFor(Student $student): array
+    public function videosFor(Student $student): Collection
     {
-        $today = new \DateTimeImmutable();
-        return array_filter(
-            $this->videos,
-            fn (Video $video) => $video->getAgeLimit() <= $student->getBd()->diff($today)->y,
-        );
+        return $this->videos->getVideosOfStudent($student);
     }
 }

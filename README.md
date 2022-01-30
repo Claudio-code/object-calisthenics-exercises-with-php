@@ -20,4 +20,5 @@
   - Has one only one level per method
   - Never use ELSE
 - Fail fast
-- Involve yours primitive types
+- Involve yours primitive types#
+- First class collection
